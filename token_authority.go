@@ -50,8 +50,8 @@ func (ta *TokenAuthority) CreateNewSessionToken(claims ITokenClaims) (string, er
 	return tokenString, err
 }
 
-func (ta *TokenAuthority) VerifyTokenString(tokenStr string) (IToken, ITokenClaims, error) {
-	t, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+func (ta *TokenAuthority) VerifyTokenString(tokenString string) (IToken, ITokenClaims, error) {
+	t, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}

@@ -49,6 +49,12 @@ func NewResource(ctx domain.IContext, options *Options) *Resource {
 
 	tokenAuthority := options.TokenAuthority
 	if tokenAuthority == nil {
+		if options.PrivateSigningKey == nil {
+			panic("sessions.options.PrivateSigningKey is required")
+		}
+		if options.PublicSigningKey == nil {
+			panic("sessions.options.PublicSigningKey is required")
+		}
 		// init default RevokedTokenRepository
 		tokenAuthority = NewTokenAuthority(&TokenAuthorityOptions{
 			PrivateSigningKey: options.PrivateSigningKey,

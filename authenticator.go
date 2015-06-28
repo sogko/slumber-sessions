@@ -27,7 +27,7 @@ func (auth *Authenticator) Handler(w http.ResponseWriter, req *http.Request, nex
 	if authHeaderString != "" {
 		tokens := strings.Split(authHeaderString, " ")
 		if len(tokens) != 2 || (len(tokens) > 0 && strings.ToUpper(tokens[0]) != "BEARER") {
-			resource.RenderUnauthorizedError(w, req, "Invalid format, expected Authorization: Bearer [token]")
+			resource.RenderUnauthorizedError(w, req, "Invalid format, expected Authorization: Bearer {token}")
 			return
 		}
 		tokenString := tokens[1]
