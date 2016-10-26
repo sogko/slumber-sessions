@@ -1,7 +1,7 @@
 package sessions
 
 import (
-	"github.com/sogko/slumber/domain"
+	"github.com/grsouza/slumber/domain"
 	"net/http"
 )
 

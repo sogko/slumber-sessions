@@ -1,7 +1,7 @@
 package sessions
 
 import (
-	. "github.com/sogko/slumber-sessions/domain"
+	. "github.com/grsouza/slumber-sessions/domain"
 
 	"fmt"
 	"time"

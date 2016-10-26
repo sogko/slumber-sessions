@@ -3,7 +3,7 @@ package sessions
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/sogko/slumber/domain"
+	"github.com/grsouza/slumber/domain"
 	"gopkg.in/mgo.v2/bson"
 	"log"
 	"net/http"
