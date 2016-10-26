@@ -3,7 +3,7 @@ package sessions
 import (
 	"crypto/rsa"
 
-	. "github.com/grsouza/slumber-sessions/domain"
+	. "github.com/sogko/slumber-sessions/domain"
 
 	"fmt"
 	"time"

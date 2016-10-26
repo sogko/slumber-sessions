@@ -4,9 +4,9 @@ import (
 	"crypto/rsa"
 	"net/http"
 
-	. "github.com/grsouza/slumber-sessions/domain"
-	usersDomain "github.com/grsouza/slumber-users/domain"
-	"github.com/grsouza/slumber/domain"
+	. "github.com/sogko/slumber-sessions/domain"
+	usersDomain "github.com/sogko/slumber-users/domain"
+	"github.com/sogko/slumber/domain"
 )
 
 type PostCreateSessionHookPayload struct {

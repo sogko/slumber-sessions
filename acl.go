@@ -3,7 +3,7 @@ package sessions
 import (
 	"net/http"
 
-	"github.com/grsouza/slumber/domain"
+	"github.com/sogko/slumber/domain"
 )
 
 func (resource *Resource) HandleGetSessionACL(req *http.Request, user domain.IUser) (bool, string) {

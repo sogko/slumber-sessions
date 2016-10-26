@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/grsouza/slumber/domain"
+	"github.com/sogko/slumber/domain"
 	"gopkg.in/mgo.v2/bson"
 )
 

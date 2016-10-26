@@ -1,11 +1,11 @@
 package sessions
 
 import (
-	. "github.com/grsouza/slumber-sessions/domain"
+	. "github.com/sogko/slumber-sessions/domain"
 
 	"time"
 
-	"github.com/grsouza/slumber/domain"
+	"github.com/sogko/slumber/domain"
 	"gopkg.in/mgo.v2/bson"
 )
 
