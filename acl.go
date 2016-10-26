@@ -1,8 +1,9 @@
 package sessions
 
 import (
-	"github.com/sogko/slumber/domain"
 	"net/http"
+
+	"github.com/sogko/slumber/domain"
 )
 
 func (resource *Resource) HandleGetSessionACL(req *http.Request, user domain.IUser) (bool, string) {

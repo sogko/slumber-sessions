@@ -1,10 +1,12 @@
 package sessions
 
 import (
+	"crypto/rsa"
+	"net/http"
+
 	. "github.com/sogko/slumber-sessions/domain"
 	usersDomain "github.com/sogko/slumber-users/domain"
 	"github.com/sogko/slumber/domain"
-	"net/http"
 )
 
 type PostCreateSessionHookPayload struct {
@@ -23,8 +25,8 @@ type ControllerHooks struct {
 type Options struct {
 	BasePath                      string
 	TokenAuthority                ITokenAuthority
-	PrivateSigningKey             []byte
-	PublicSigningKey              []byte
+	PrivateSigningKey             *rsa.PrivateKey
+	PublicSigningKey              *rsa.PublicKey
 	Database                      domain.IDatabase
 	Renderer                      domain.IRenderer
 	RevokedTokenRepositoryFactory IRevokedTokenRepositoryFactory

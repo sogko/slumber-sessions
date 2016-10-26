@@ -1,9 +1,10 @@
 package sessions
 
 import (
+	"time"
+
 	"github.com/dgrijalva/jwt-go"
 	"gopkg.in/mgo.v2/bson"
-	"time"
 )
 
 func NewTokenClaims(userID string) *TokenClaims {

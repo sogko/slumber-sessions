@@ -3,9 +3,10 @@ package sessions
 import (
 	. "github.com/sogko/slumber-sessions/domain"
 
+	"time"
+
 	"github.com/sogko/slumber/domain"
 	"gopkg.in/mgo.v2/bson"
-	"time"
 )
 
 // User collection name

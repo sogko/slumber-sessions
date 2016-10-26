@@ -1,12 +1,15 @@
 package sessions
 
 import (
+	"crypto/rsa"
+
 	. "github.com/sogko/slumber-sessions/domain"
 
 	"fmt"
+	"time"
+
 	"github.com/dgrijalva/jwt-go"
 	"gopkg.in/mgo.v2/bson"
-	"time"
 )
 
 func generateJTI() string {
@@ -24,8 +27,8 @@ type TokenAuthority struct {
 }
 
 type TokenAuthorityOptions struct {
-	PrivateSigningKey []byte
-	PublicSigningKey  []byte
+	PrivateSigningKey *rsa.PrivateKey
+	PublicSigningKey  *rsa.PublicKey
 }
 
 func NewTokenAuthority(options *TokenAuthorityOptions) *TokenAuthority {
@@ -39,12 +42,13 @@ func (ta *TokenAuthority) CreateNewSessionToken(claims ITokenClaims) (string, er
 
 	token := jwt.New(jwt.SigningMethodRS512)
 
-	token.Claims = map[string]interface{}{
+	token.Claims = jwt.MapClaims{
 		"userId": c.UserID,
 		"exp":    time.Now().Add(time.Hour * 72).Format(time.RFC3339), // 3 days
 		"iat":    time.Now().Format(time.RFC3339),
 		"jti":    generateJTI(),
 	}
+
 	tokenString, err := token.SignedString(ta.Options.PrivateSigningKey)
 
 	return tokenString, err
@@ -63,18 +67,19 @@ func (ta *TokenAuthority) VerifyTokenString(tokenString string) (IToken, ITokenC
 
 	var claims TokenClaims
 	token := NewToken(t)
+	tokenClaims := token.Claims.(jwt.MapClaims)
 	if token.IsValid() {
-		if token.Claims["userId"] != nil {
-			claims.UserID = token.Claims["userId"].(string)
+		if tokenClaims["userId"] != nil {
+			claims.UserID = tokenClaims["userId"].(string)
 		}
-		if token.Claims["jti"] != nil {
-			claims.JTI = token.Claims["jti"].(string)
+		if tokenClaims["jti"] != nil {
+			claims.JTI = tokenClaims["jti"].(string)
 		}
-		if token.Claims["iat"] != nil {
-			claims.IssuedAt, _ = time.Parse(time.RFC3339, token.Claims["iat"].(string))
+		if tokenClaims["iat"] != nil {
+			claims.IssuedAt, _ = time.Parse(time.RFC3339, tokenClaims["iat"].(string))
 		}
-		if token.Claims["exp"] != nil {
-			claims.ExpireAt, _ = time.Parse(time.RFC3339, token.Claims["exp"].(string))
+		if tokenClaims["exp"] != nil {
+			claims.ExpireAt, _ = time.Parse(time.RFC3339, tokenClaims["exp"].(string))
 		}
 	}
 

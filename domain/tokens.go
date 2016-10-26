@@ -13,5 +13,4 @@ type IToken interface {
 	IsValid() bool
 }
 
-type IRevokedToken interface {
-}
+type IRevokedToken interface{}
