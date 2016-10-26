@@ -3,10 +3,11 @@ package sessions
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/grsouza/slumber/domain"
-	"gopkg.in/mgo.v2/bson"
 	"log"
 	"net/http"
+
+	"github.com/grsouza/slumber/domain"
+	"gopkg.in/mgo.v2/bson"
 )
 
 type GetSessionResponse_v0 struct {

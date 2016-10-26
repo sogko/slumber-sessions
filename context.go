@@ -3,8 +3,9 @@ package sessions
 import (
 	. "github.com/grsouza/slumber-sessions/domain"
 
-	"github.com/grsouza/slumber/domain"
 	"net/http"
+
+	"github.com/grsouza/slumber/domain"
 )
 
 const TokenAuthorityKey domain.ContextKey = "slumber-mddlwr-session-token-authority-key"

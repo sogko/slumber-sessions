@@ -3,9 +3,10 @@ package sessions
 import (
 	. "github.com/grsouza/slumber-sessions/domain"
 
-	"github.com/grsouza/slumber/domain"
 	"net/http"
 	"strings"
+
+	"github.com/grsouza/slumber/domain"
 )
 
 func NewAuthenticator(resource *Resource) *Authenticator {

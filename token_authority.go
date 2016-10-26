@@ -1,6 +1,8 @@
 package sessions
 
 import (
+	"crypto/rsa"
+
 	. "github.com/grsouza/slumber-sessions/domain"
 
 	"fmt"
@@ -25,8 +27,8 @@ type TokenAuthority struct {
 }
 
 type TokenAuthorityOptions struct {
-	PrivateSigningKey []byte
-	PublicSigningKey  []byte
+	PrivateSigningKey *rsa.PrivateKey
+	PublicSigningKey  *rsa.PublicKey
 }
 
 func NewTokenAuthority(options *TokenAuthorityOptions) *TokenAuthority {
@@ -46,6 +48,7 @@ func (ta *TokenAuthority) CreateNewSessionToken(claims ITokenClaims) (string, er
 		"iat":    time.Now().Format(time.RFC3339),
 		"jti":    generateJTI(),
 	}
+
 	tokenString, err := token.SignedString(ta.Options.PrivateSigningKey)
 
 	return tokenString, err
