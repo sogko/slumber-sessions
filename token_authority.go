@@ -4,9 +4,10 @@ import (
 	. "github.com/sogko/slumber-sessions/domain"
 
 	"fmt"
+	"time"
+
 	"github.com/dgrijalva/jwt-go"
 	"gopkg.in/mgo.v2/bson"
-	"time"
 )
 
 func generateJTI() string {
@@ -39,7 +40,7 @@ func (ta *TokenAuthority) CreateNewSessionToken(claims ITokenClaims) (string, er
 
 	token := jwt.New(jwt.SigningMethodRS512)
 
-	token.Claims = map[string]interface{}{
+	token.Claims = jwt.MapClaims{
 		"userId": c.UserID,
 		"exp":    time.Now().Add(time.Hour * 72).Format(time.RFC3339), // 3 days
 		"iat":    time.Now().Format(time.RFC3339),
@@ -64,17 +65,17 @@ func (ta *TokenAuthority) VerifyTokenString(tokenString string) (IToken, ITokenC
 	var claims TokenClaims
 	token := NewToken(t)
 	if token.IsValid() {
-		if token.Claims["userId"] != nil {
-			claims.UserID = token.Claims["userId"].(string)
+		if token.Claims.(jwt.MapClaims)["userId"] != nil {
+			claims.UserID = token.Claims.(jwt.MapClaims)["userId"].(string)
 		}
-		if token.Claims["jti"] != nil {
-			claims.JTI = token.Claims["jti"].(string)
+		if token.Claims.(jwt.MapClaims)["jti"] != nil {
+			claims.JTI = token.Claims.(jwt.MapClaims)["jti"].(string)
 		}
-		if token.Claims["iat"] != nil {
-			claims.IssuedAt, _ = time.Parse(time.RFC3339, token.Claims["iat"].(string))
+		if token.Claims.(jwt.MapClaims)["iat"] != nil {
+			claims.IssuedAt, _ = time.Parse(time.RFC3339, token.Claims.(jwt.MapClaims)["iat"].(string))
 		}
-		if token.Claims["exp"] != nil {
-			claims.ExpireAt, _ = time.Parse(time.RFC3339, token.Claims["exp"].(string))
+		if token.Claims.(jwt.MapClaims)["exp"] != nil {
+			claims.ExpireAt, _ = time.Parse(time.RFC3339, token.Claims.(jwt.MapClaims)["exp"].(string))
 		}
 	}
 
